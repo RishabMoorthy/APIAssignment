@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "78701a6c-13bb-41c0-85e0-e2131c6e9f75",
+		"name": "Jira_Chaining",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21380387"
+	},
+	"item": [
+		{
+			"name": "createIssue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"BUG Created Successfully!\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time must be less than 3 seconds\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has the required fields - id, key, and self\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.id).to.exist;\r",
+							"    pm.expect(responseData.key).to.exist;\r",
+							"    pm.expect(responseData.self).to.exist;\r",
+							"});\r",
+							"\r",
+							"var resp=pm.response.json();\r",
+							"var id=resp.id;\r",
+							"pm.globals.set(\"Bug_ID\",id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n    \"project\":\r\n                {\r\n                    \"key\": \"TES\"\r\n                },\r\n    \"summary\": \"{{Summary}}\",\r\n    \"description\": \"{{Description}}\",\r\n    \"issuetype\": {\r\n                    \"name\": \"Bug\"\r\n                }\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/rest/api/2/issue/",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getIssueDetail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/rest/api/2/issue/{{Bug_ID}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"{{Bug_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateIssue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n\r\n        \"description\": \"{{update_Description}}\"\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/rest/api/2/issue/{{Bug_ID}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"{{Bug_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteIssue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 204\", function () {\r",
+							"  pm.expect(pm.response.code).to.equal(204);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/rest/api/2/issue/{{Bug_ID}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"{{Bug_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllIssueType",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/rest/api/2/issuetype",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issuetype"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSpecificIssueType",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/rest/api/2/issuetype/10012",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issuetype",
+						"10012"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{Password}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{Username}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

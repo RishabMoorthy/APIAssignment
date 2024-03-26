@@ -1,0 +1,39 @@
+{
+	"id": "ff276afd-67f3-47cc-84d0-90fcbb19e0d6",
+	"values": [
+		{
+			"key": "system_id",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "incident",
+			"value": "incident",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "Number",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "BearerToken",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Bug_ID",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2024-03-26T15:59:23.362Z",
+	"_postman_exported_using": "Postman/10.24.7"
+}

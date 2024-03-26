@@ -1,0 +1,4 @@
+Summary,Description,update_Description
+Login Failure,Users unable to log in to the application.,Users can now access the application successfully.
+Login Button Inactive,"Login button remains inactive, preventing user access.","Login button functionality restored, users can now access the system."
+Gateway Timeout,Encountering 504 Gateway Timeout error when accessing the application.,"Resolved 504 Gateway Timeout issue, application now accessible without delay."
